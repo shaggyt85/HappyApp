@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { PeopleTableComponent } from '../people-table/people-table.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [PeopleTableComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
