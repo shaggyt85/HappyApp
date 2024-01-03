@@ -4,6 +4,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { PeopleTableComponent } from '../people-table/people-table.component';
+import { DataSharingState } from '../app.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -12,11 +14,19 @@ import { PeopleTableComponent } from '../people-table/people-table.component';
   styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent {
-  constructor(public dialog: MatDialog) {}
+  $subscription: Subscription;
+  constructor(public dialog: MatDialog) {
+    this.$subscription = DataSharingState.getAsyncData().subscribe((prop) => {
+      console.log(prop);
+    })
+  }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PeopleTableComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+  ngOnDestroy(): void{
+    this.$subscription.unsubscribe();
   }
 }

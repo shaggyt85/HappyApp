@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DataSharing } from './services/data-sharing-services';
+
+export const DataSharingState = new DataSharing()
 
 @Component({
   selector: 'app-root',

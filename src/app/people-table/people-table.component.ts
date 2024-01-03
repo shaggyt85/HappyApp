@@ -6,6 +6,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { People } from '../data';
 import { Person } from '../model/people';
+import { DataSharingState } from '../app.component';
 
 @Component({
   selector: 'app-people-table',
@@ -22,7 +23,7 @@ export class PeopleTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-
+    DataSharingState.setAsyncData(true)
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(People);
   }
