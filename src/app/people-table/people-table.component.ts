@@ -6,7 +6,10 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { People } from '../data';
 import { Person } from '../model/people';
-import { DataSharingState } from '../app.component';
+import { ShaggyStateManager } from '../app.component';
+import { SourceOfTruthKey } from '../state-management/store/store';
+import { UserStateProperties } from '../state-management/store/states/user.states';
+
 
 @Component({
   selector: 'app-people-table',
@@ -23,7 +26,7 @@ export class PeopleTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    DataSharingState.setAsyncData(true)
+    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).setObservableValue('carlos', UserStateProperties.NAME)
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(People);
   }

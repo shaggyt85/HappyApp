@@ -4,8 +4,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { PeopleTableComponent } from '../people-table/people-table.component';
-import { DataSharingState } from '../app.component';
-import { Subscription } from 'rxjs';
+import { ShaggyStateManager } from '../app.component';
+import { SourceOfTruthKey } from '../state-management/store/store';
+import { UserStateProperties } from '../state-management/store/states/user.states';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -14,10 +15,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent {
-  $subscription: Subscription;
   constructor(public dialog: MatDialog) {
-    this.$subscription = DataSharingState.getAsyncData().subscribe((prop) => {
-      console.log(prop);
+    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).getObservable().subscribe((user) => {
+      console.log(user)
     })
   }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -27,6 +27,6 @@ export class ToolbarComponent {
     });
   }
   ngOnDestroy(): void{
-    this.$subscription.unsubscribe();
+    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).unsubscribe
   }
 }

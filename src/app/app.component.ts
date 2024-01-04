@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { DataSharing } from './services/data-sharing-services';
+import { ShaggyState } from './state-management/models/shaggy-state-manager';
+import { SourceOfTruth } from './state-management/store/store';
 
-export const DataSharingState = new DataSharing()
+
+export const ShaggyStateManager = new ShaggyState(SourceOfTruth)
 
 @Component({
   selector: 'app-root',
