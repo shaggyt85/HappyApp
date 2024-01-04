@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ShaggyState } from './state-management/models/shaggy-state-manager';
 import { SourceOfTruth } from './state-management/store/store';
+import { createStore } from './state-management/services/service';
 
 
-export const ShaggyStateManager = new ShaggyState(SourceOfTruth)
+export const ShaggyStateManager = createStore(SourceOfTruth)
 
 @Component({
   selector: 'app-root',

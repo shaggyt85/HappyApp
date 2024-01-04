@@ -1,16 +1,30 @@
-import { checkIfConditionMet } from "../utilities/check-if-property-exists";
+import { checkIfConditionMet } from "../utilities/check-if-condition-met";
+import { SourceOfTruth, SourceOfTruthInitiate } from "./sources-ot-truth";
 import { ShaggyObject } from "./shaggy-object";
-import { SourceOfTruth, SourceOfTruthState } from "./sources-ot-truth";
 
 export class ShaggyState {
   private observerArray: SourceOfTruth = new Map()
-  constructor(SourceOfTruth: SourceOfTruthState[]) {
-    SourceOfTruth.forEach((sourceOfTruthState) => {
-      const { key, state } = sourceOfTruthState;
-      this.createObservable(key, state);
+  constructor(SourceOfTruthKeys: SourceOfTruthInitiate[]) {
+    SourceOfTruthKeys.forEach((k) => {
+      const { state } = k;
+      this.createObservable(k.key, state);
     });
   }
-  private createObservable(key: string, state: any) {
+  private static checkIfFound(
+    shaggyObject: ShaggyObject | undefined
+  ): ShaggyObject {
+    const condition = () => {
+      return { met: !!shaggyObject, value: shaggyObject };
+    };
+    return checkIfConditionMet(
+      () => condition(),
+      "Observable item not found ! check if the key is correct and exists"
+    );
+  }
+  createNewSourceOfTruth(key: string, state: any):void {
+    this.createObservable(key, state);
+  }
+  private createObservable(key: string, state: any):void {
     const found = this.observerArray.has(key);
     if (found) {
       console.log(
@@ -22,7 +36,9 @@ export class ShaggyState {
     }
   }
   getEntity(key: string): ShaggyObject {
-    const found = checkIfConditionMet({met: this.observerArray.has(key), value: this.observerArray.get(key)}, `The key ${key} does not exist in the source of truth.`);
-      return found
+    const observableArrayItem = ShaggyState.checkIfFound(
+      this.observerArray.get(key)
+    );
+    return observableArrayItem;
   }
 }

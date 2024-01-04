@@ -16,8 +16,8 @@ import { UserStateProperties } from '../state-management/store/states/user.state
 })
 export class ToolbarComponent {
   constructor(public dialog: MatDialog) {
-    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).getObservable().subscribe((user) => {
-      console.log(user)
+    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).getPropertyFromObservable(UserStateProperties.AGE).subscribe((age) => {
+      console.log(age)
     })
   }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

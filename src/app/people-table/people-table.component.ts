@@ -26,7 +26,7 @@ export class PeopleTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).setObservableValue('carlos', UserStateProperties.NAME)
+    ShaggyStateManager.getEntity(SourceOfTruthKey.USER).setObservableValues(20, UserStateProperties.AGE)
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(People);
   }

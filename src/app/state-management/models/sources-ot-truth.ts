@@ -1,8 +1,8 @@
 import { ShaggyObject } from "./shaggy-object";
 
-export interface SourceOfTruthState {
+export type SourceOfTruth = Map<string, ShaggyObject>;
+export interface SourceOfTruthInitiate {
   key: string;
   state: any;
 }
 
-export type SourceOfTruth = Map<string, ShaggyObject>;
